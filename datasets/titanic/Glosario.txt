@@ -1,0 +1,61 @@
+Parametros de la función read_csv
+
+read.csv(filepath="/home/damanosalvag/Documentos/GitHub/ProyectoUdemyMachineLearning/datasets/titanic/titanic3.csv",sep = ",",dtype={"ingresos":np.float64, "edad":np.int32}, header=0,names={"ingresos", "edad"}, skiprows=12, index_col=None, skip_blank_lines=False, na_filter=False)
+
+sep="," es el simbolo de separacion o delimitacion en el dataset
+dtype=None tipo de dato, sirve para especificar el tipo de dato de las columnas
+dtype={"ingresos":np.float, "edad":np.int32}
+header=0, determina que fila es el encabezado, normalmente se entiende que es la primera fila
+names={"ingresos", "edad"},  indica el nombre de las columnas
+skiprows=12,    saltarse filas al leer el fichero, en este caso leería desde la 12
+index_col=None     aplicar etiquetas para las filas del dataset
+skip_blank_lines=True   saltarse valores en blanco, los booleanos empiezan con mayuscula
+na_filter=False   elimina valores en blancos, o vacios o NaN, elimina toda la fila.
+
+read.csv tambien puede leer archivos txt
+data2 = pd.read_csv(mainpath + "/" + "customer-churn-model/Customer Churn Model.txt")
+
+
+data_cols = pd.read_csv(mainpath + "/" + "customer-churn-model/Customer Churn Columns.csv")
+#crea una nueva variable para leer el dataset csv
+data_col_list = data_cols["Column_Names"].tolist()
+#convierte los datos del dataset csv en una lista
+data2 = pd.read_csv(mainpath + "/" + "customer-churn-model/Customer Churn Model.txt", header = None,
+                   names = data_col_list)
+#carga el dataset data2, o sea el txt y en el parametro header pone sin encabezado y en names se pone la lista convertida
+data2.columns.values #este es para ver los nombres de las columnas del dataset txt y confirmar las letras de la lista
+
+
+Carga de datos a través de la función open
+se usa para leer datasets grandes, no todo de una como lo hace pandas sino por lineas
+
+
+data3 = open(mainpath + "/" + "customer-churn-model/Customer Churn Model.txt", "r")
+#se crea un nuevo dataset para leer el txt pero solo eso leer
+cols = data3.next().strip() 
+#.next() va de columna a columna
+#.strip() elimina el espacio en blanco al inicio o al final de la linea
+#.split() elimina o cambia un pequeño fragmento por un delimitador 
+#data3.readline() lee una sola linea
+
+counter = 0
+main_dict = {}
+for col in cols:
+    main_dict[col] = []
+
+#Crea una etiqueta para cada columna en valor vacío
+
+for line in data3:
+    values = line.strip().split(",")
+    for i in range(len(cols)):
+        main_dict[cols[i]].append(values[i])
+    counter += 1
+
+print("El data set tiene %d filas y %d columnas"%(counter, n_cols))
+
+#rellena las etiquetas por lineas con valores que aumentan en 1
+
+
+
+
+
